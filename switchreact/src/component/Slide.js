@@ -6,7 +6,7 @@ function Slide({content}) {
         case "title":
             return (<TitlePage content={content}></TitlePage>)
         case "content":
-            return (<ContentPage></ContentPage>)
+            return (<ContentPage content={content}></ContentPage>)
     }
 }
 

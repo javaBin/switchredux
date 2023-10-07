@@ -1,8 +1,7 @@
-function ContentPage() {
+function ContentPage({content}) {
     return (<div className={"contentPage"}>
-        <div className={"contentHeading"}>Overskrift</div>
-        <div className={"contentContent"}>Del a</div>
-        <div className={"contentContent"}>Del b</div>
+        <div className={"contentHeading"}>{content.titleText}</div>
+        {content.contextTexts.map((contentText,index) => <div className={"contentContent"} key={index}>{contentText}</div> )}
     </div>)
 }
 

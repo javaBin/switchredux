@@ -9,7 +9,9 @@ function App() {
       titleText: "Welcome to JavaZone"
     },
     {
-      type: "content"
+      type: "content",
+      titleText: "Overskrift",
+      contextTexts: ["Item one","Item two","Item three"]
     },
     {
       type: "title",
