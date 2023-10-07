@@ -1,0 +1,35 @@
+:root {
+    --title-color: yellow;
+    --text-color: white;
+}
+
+.MainApp {
+    background-color: black;
+    height: 100vh;
+}
+
+.titlePage {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: var(--title-color);
+    font-size: 90px;
+}
+
+.contentPage {
+    font-size: 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.contentPage .contentHeading {
+    color: var(--title-color);
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.contentPage .contentContent {
+    padding: 20px;
+    color: var(--text-color);
+}
