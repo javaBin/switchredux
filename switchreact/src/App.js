@@ -1,32 +1,45 @@
 import './App.css';
-import {useState,useEffect,useCallback} from "react";
+import {useState,useEffect,useCallback,} from "react";
 import Slide from "./component/Slide";
 
 function App() {
-  const slideDeck = [
-    {
-      type: "title",
-      titleText: "Welcome to JavaZone"
-    },
-    {
-      type: "content",
-      titleText: "Overskrift",
-      contextTexts: ["Item one","Item two","Item three"]
-    },
-    {
-      type: "title",
-      titleText: "See you at the party"
-    },
-  ]
-  const [ordershown,setOrderShown] = useState(0)
+
+
+  const [slideDeck,setSlideDeck] = useState({id: "dummy",slideList:[]});
+  const [ordershown,setOrderShown] = useState(-1);
+
 
   const updateSlide = useCallback(() => {
     var newNumber = ordershown+1;
-    if (newNumber >= slideDeck.length) {
+    if (newNumber >= slideDeck.slideList.length) {
       newNumber = 0;
     }
-    setOrderShown(newNumber);
-  }, [ordershown]);
+    if (newNumber === 0) {
+      fetch('http://localhost:8080')
+          .then(res => res.json())
+          .then(loadedData => {
+            setSlideDeck(loadedData);
+            setOrderShown(0);
+          });
+    } else {
+      setOrderShown(newNumber);
+    }
+
+  }, [ordershown,slideDeck]);
+
+
+
+  /*
+
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+        fetch('http://localhost:8080')
+              .then(res => res.json())
+              .then(loadedData => setSlideDeck(loadedData));
+    }, 2_000);
+    return () => clearInterval(intervalID);
+  },[setOrderShown]);*/
+
 
   useEffect(() => {
     const intervalID = setInterval(updateSlide, 5000);
@@ -34,9 +47,10 @@ function App() {
   }, [updateSlide])
 
 
+
   return (
     <div className={"MainApp"}>
-      <Slide content={slideDeck[ordershown]}></Slide>
+      {(slideDeck.slideList.length === 0) ? <div className={"loadingText"}>Loading...</div> : <Slide content={slideDeck.slideList[ordershown]}></Slide>}
 
     </div>
   );
