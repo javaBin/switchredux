@@ -7,6 +7,8 @@ function Slide({content}) {
             return (<TitlePage content={content}></TitlePage>)
         case "content":
             return (<ContentPage content={content}></ContentPage>)
+        default:
+            return (<div>Unknown</div>)
     }
 }
 

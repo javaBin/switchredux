@@ -1,5 +1,5 @@
 import './App.css';
-import {useState,useEffect,useCallback,} from "react";
+import {useState,useEffect,useCallback} from "react";
 import Slide from "./component/Slide";
 
 function App() {
@@ -18,7 +18,9 @@ function App() {
       fetch('http://localhost:8080')
           .then(res => res.json())
           .then(loadedData => {
-            setSlideDeck(loadedData);
+            if (loadedData.id !== slideDeck.id) {
+              setSlideDeck(loadedData);
+            }
             setOrderShown(0);
           });
     } else {
@@ -27,24 +29,32 @@ function App() {
 
   }, [ordershown,slideDeck]);
 
+  useEffect(() => {
+    fetch('http://localhost:8080')
+        .then(res => res.json())
+        .then(loadedData => {
+          if (loadedData.id !== slideDeck.id) {
+            setSlideDeck(loadedData);
+          }
+          setOrderShown(0);
 
+        });
+  }, []);
 
-  /*
 
   useEffect(() => {
+    if (slideDeck.slideList.length < 1) {
+      return;
+    }
     const intervalID = setInterval(() => {
-        fetch('http://localhost:8080')
-              .then(res => res.json())
-              .then(loadedData => setSlideDeck(loadedData));
-    }, 2_000);
+      clearInterval(intervalID);
+      updateSlide();
+    }, slideDeck.slideList[ordershown].time);
+
     return () => clearInterval(intervalID);
-  },[setOrderShown]);*/
+  }, [slideDeck,ordershown]);
 
 
-  useEffect(() => {
-    const intervalID = setInterval(updateSlide, 5000);
-    return () => clearInterval(intervalID);
-  }, [updateSlide])
 
 
 
