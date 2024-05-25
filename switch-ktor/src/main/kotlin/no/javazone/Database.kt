@@ -6,9 +6,11 @@ import io.ktor.http.*
 import no.javazone.errors.InternalException
 import org.flywaydb.core.Flyway
 import org.jsonbuddy.JsonObject
+import org.jsonbuddy.pojo.PojoMapper
 import java.sql.Connection
 import java.util.concurrent.ConcurrentHashMap
 import javax.sql.DataSource
+import kotlin.reflect.KClass
 
 enum class DataBaseType(val driverClass:String?=null) {
     POSTGRES,SQLLITE,PGINMEM("no.anksoft.pginmem.PgInMemDatasource");
@@ -66,18 +68,20 @@ object Database {
 
     private val connStore = ConcurrentHashMap<Long,Connection>()
 
-    fun doWithConnection(toDo:()->Pair<HttpStatusCode,JsonObject>) {
+    fun doWithConnection(input:JsonObject, commandClass: KClass<out Command>):Pair<HttpStatusCode,JsonObject>{
+        val command:Command = PojoMapper.map(input,commandClass.java)
         val conn = datasource.connection
         conn.autoCommit = false
         val threadId = Thread.currentThread().id
         connStore[threadId] = conn
         var haveCommited = false
         try {
-            val result = toDo()
-            if (result.first.value >= 200 && result.first.value < 300) {
+            val result = command.execute()
+            if (result.commandStatus == CommandStatus.OK) {
                 conn.commit()
                 haveCommited = true
             }
+            return Pair(result.httpStatusCode,result.toJson())
         } finally {
             if (!haveCommited) {
                 conn.rollback();

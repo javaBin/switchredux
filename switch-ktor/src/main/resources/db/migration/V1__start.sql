@@ -1,5 +1,6 @@
 create table slide(
     slidedeck text,
     slidenumber int,
-    content text
+    content text,
+    duration int
 );

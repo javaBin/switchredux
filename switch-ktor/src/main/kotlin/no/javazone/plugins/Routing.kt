@@ -7,6 +7,8 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.util.reflect.*
+import no.javazone.Database
+import no.javazone.commands.AddSlideCommand
 import org.jsonbuddy.JsonArray
 import org.jsonbuddy.JsonObject
 import java.util.UUID
@@ -34,7 +36,8 @@ fun Application.configureRouting() {
 
         post("/api/addSlide") {
             val input = JsonObject.read(call.receiveStream())
-            call.respondText(input.toJson(), ContentType.Application.Json, HttpStatusCode.OK)
+            val (httpStatusCode:HttpStatusCode,result:JsonObject) = Database.doWithConnection(input,AddSlideCommand::class)
+            call.respondText(result.toJson(), ContentType.Application.Json, httpStatusCode)
         }
     }
 }
