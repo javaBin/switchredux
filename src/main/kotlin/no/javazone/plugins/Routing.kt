@@ -17,8 +17,12 @@ import java.util.UUID
 
 fun Application.configureRouting() {
     routing {
-        get("/") {
-            /*
+        static("/") {
+            defaultResource("index.html", "static")
+            resources("static")
+        }
+        get("/config") {
+
             val toRespond = JsonObject()
                 .put("id",UUID.randomUUID().toString())
                 .put("slideList",JsonArray.fromNodeList(
@@ -28,20 +32,19 @@ fun Application.configureRouting() {
                         JsonObject().put("type","title").put("titleText","See you at the party").put("time",1000)
                     )
                 ))
-            */
-            val toRespond = SlideService.currentSlide()
+
+            //val toRespond = SlideService.currentSlide()
 
             call.respondText(JsonGenerator.generate(toRespond).toJson(), ContentType.Application.Json, HttpStatusCode.OK)
         }
         // Static plugin. Try to access `/static/index.html`
-        static("/static") {
-            resources("static")
-        }
+
 
         post("/api/addSlide") {
             val input = JsonObject.read(call.receiveStream())
             val (httpStatusCode:HttpStatusCode,result:JsonObject) = Database.doWithConnection(input,AddSlideCommand::class)
             call.respondText(result.toJson(), ContentType.Application.Json, httpStatusCode)
         }
+
     }
 }
