@@ -9,13 +9,16 @@ import io.ktor.server.routing.*
 import io.ktor.util.reflect.*
 import no.javazone.Database
 import no.javazone.commands.AddSlideCommand
+import no.javazone.slide.*
 import org.jsonbuddy.JsonArray
 import org.jsonbuddy.JsonObject
+import org.jsonbuddy.pojo.JsonGenerator
 import java.util.UUID
 
 fun Application.configureRouting() {
     routing {
         get("/") {
+            /*
             val toRespond = JsonObject()
                 .put("id",UUID.randomUUID().toString())
                 .put("slideList",JsonArray.fromNodeList(
@@ -25,9 +28,10 @@ fun Application.configureRouting() {
                         JsonObject().put("type","title").put("titleText","See you at the party").put("time",1000)
                     )
                 ))
+            */
+            val toRespond = SlideService.currentSlide()
 
-
-            call.respondText(toRespond.toJson(), ContentType.Application.Json, HttpStatusCode.OK)
+            call.respondText(JsonGenerator.generate(toRespond).toJson(), ContentType.Application.Json, HttpStatusCode.OK)
         }
         // Static plugin. Try to access `/static/index.html`
         static("/static") {

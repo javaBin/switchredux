@@ -4,63 +4,65 @@ import Slide from "./component/Slide";
 
 function App() {
 
+  //const initSlide = {id:"dummy",type:"title",titleText:"I am dummy"};
+  const initSlide = {id:"dummy",type:"NEXT_SLOT",roomList: [
+      {
+        id: "0",
+        room: "Room 1"
+      },
+      {
+        id: "1",
+        room: "Room 2"
+      },
+      {
+        id: "2",
+        room: "Room 3"
+      },
+      {
+        id: "3",
+        room: "Room 4"
+      },
+      {
+        id: "4",
+        room: "Room 5"
+      },
+      {
+        id: "5",
+        room: "Room 6"
+      },
+      {
+        id: "6",
+        room: "Room 7"
+      },
+      {
+        id: "7",
+        room: "Room 8"
+      }
+    ]};
 
-  const [slideDeck,setSlideDeck] = useState({id: "dummy",slideList:[]});
-  const [ordershown,setOrderShown] = useState(-1);
+  const [currentSlide,setCurrentSlide] = useState(initSlide);
 
 
-  const updateSlide = useCallback(() => {
-    var newNumber = ordershown+1;
-    if (newNumber >= slideDeck.slideList.length) {
-      newNumber = 0;
-    }
-    if (newNumber === 0) {
-      fetch('http://localhost:8080')
+  /*
+  useEffect(() => {
+
+    const intervalID = setInterval(() => {
+      //clearInterval(intervalID);
+      fetch('http://localhost:8080?attime=' + Date.now())
           .then(res => res.json())
           .then(loadedData => {
-            if (loadedData.id !== slideDeck.id) {
-              setSlideDeck(loadedData);
-            }
-            setOrderShown(0);
+            setCurrentSlide(loadedData)
+
           });
-    } else {
-      setOrderShown(newNumber);
-    }
-
-  }, [ordershown,slideDeck]);
-
-  useEffect(() => {
-    fetch('http://localhost:8080')
-        .then(res => res.json())
-        .then(loadedData => {
-          if (loadedData.id !== slideDeck.id) {
-            setSlideDeck(loadedData);
-          }
-          setOrderShown(0);
-
-        });
-  }, []);
-
-
-  useEffect(() => {
-    if (slideDeck.slideList.length < 1) {
-      return;
-    }
-    const intervalID = setInterval(() => {
-      clearInterval(intervalID);
-      updateSlide();
-    }, slideDeck.slideList[ordershown].time);
-
+    }, 3000);
     return () => clearInterval(intervalID);
-  }, [slideDeck,ordershown]);
-
-
-
+  }, []);
+  */
 
 
   return (
     <div className={"MainApp"}>
-      {(slideDeck.slideList.length === 0) ? <div className={"loadingText"}>Loading...</div> : <Slide content={slideDeck.slideList[ordershown]}></Slide>}
+      {(!currentSlide) ? <div className={"loadingText"}>Loading...</div> : <Slide content={currentSlide}></Slide>}
 
     </div>
   );
