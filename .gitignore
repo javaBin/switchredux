@@ -38,3 +38,6 @@ target/
 
 ## Mac ##
 .DS_Store
+
+## React build ##
+src/main/resources/static/
