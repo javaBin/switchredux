@@ -1,9 +1,8 @@
-package no.javazone
+package no.javazone.switchredux
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import io.ktor.http.*
-import no.javazone.errors.InternalException
+import no.javazone.switchredux.errors.InternalException
 import org.flywaydb.core.Flyway
 import org.jsonbuddy.JsonObject
 import org.jsonbuddy.pojo.PojoMapper
@@ -33,7 +32,7 @@ object Database {
         val dbUser = Setup.readValue(SetupValue.DBUSER)
         val dbPassword = Setup.readValue(SetupValue.DBPASSWORD)
 
-        val dataBaseType:DataBaseType = DataBaseType.valueOf(Setup.readValue(SetupValue.DATABASE_TYPE))
+        val dataBaseType: DataBaseType = DataBaseType.valueOf(Setup.readValue(SetupValue.DATABASE_TYPE))
 
         if (dataBaseType == DataBaseType.PGINMEM) {
             Class.forName("no.anksoft.pginmem.PgInMemDatasource").getDeclaredConstructor().newInstance() as DataSource
@@ -69,7 +68,7 @@ object Database {
     private val connStore = ConcurrentHashMap<Long,Connection>()
 
     fun doWithConnection(input:JsonObject, commandClass: KClass<out Command>):Pair<HttpStatusCode,JsonObject>{
-        val command:Command = PojoMapper.map(input,commandClass.java)
+        val command: Command = PojoMapper.map(input,commandClass.java)
         val conn = datasource.connection
         conn.autoCommit = false
         val threadId = Thread.currentThread().id

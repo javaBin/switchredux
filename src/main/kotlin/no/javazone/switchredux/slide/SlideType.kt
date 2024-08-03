@@ -1,4 +1,4 @@
-package no.javazone.slide
+package no.javazone.switchredux.slide
 
 import org.jsonbuddy.*
 import org.jsonbuddy.pojo.OverridesJsonGenerator

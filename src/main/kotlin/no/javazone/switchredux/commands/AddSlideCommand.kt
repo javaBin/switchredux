@@ -1,11 +1,9 @@
-package no.javazone.commands
+package no.javazone.switchredux.commands
 
-import io.ktor.http.*
-import kotlinx.serialization.json.Json
-import no.javazone.Command
-import no.javazone.CommandResult
-import no.javazone.Database
-import no.javazone.EmptyResult
+import no.javazone.switchredux.Command
+import no.javazone.switchredux.CommandResult
+import no.javazone.switchredux.Database
+import no.javazone.switchredux.EmptyResult
 import org.jsonbuddy.JsonObject
 
 class AddSlideCommand(
@@ -13,7 +11,7 @@ class AddSlideCommand(
     val slidenumber:Int?=null,
     val content:JsonObject?=null,
     val duration:Int?=null,
-):Command {
+): Command {
 
     override fun execute(): CommandResult {
         if (slidedeck == null) return Command.badRequest("Missing slidedeck")

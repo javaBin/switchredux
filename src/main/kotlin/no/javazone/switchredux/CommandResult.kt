@@ -1,6 +1,5 @@
-package no.javazone
+package no.javazone.switchredux
 
-import io.ktor.http.*
 import org.jsonbuddy.JsonObject
 import org.jsonbuddy.pojo.JsonGenerator
 
@@ -9,7 +8,7 @@ enum class CommandStatus {
 }
 abstract class CommandResult {
 
-    abstract val commandStatus:CommandStatus
+    abstract val commandStatus: CommandStatus
     open fun toJson():JsonObject {
         val res:JsonObject = JsonGenerator.generate(this) as JsonObject
         if (!res.containsKey("status")) {
@@ -19,10 +18,10 @@ abstract class CommandResult {
         return res
     }
 
-    abstract val httpStatusCode:HttpStatusCode;
+    abstract val httpStatusCode: HttpStatusCode;
 }
 
-class CommandError(override val httpStatusCode: HttpStatusCode,private val errormessage:String):CommandResult() {
+class CommandError(override val httpStatusCode: HttpStatusCode, private val errormessage:String): CommandResult() {
     override fun toJson(): JsonObject {
         return JsonObject().put("errormessage",errormessage)
     }
@@ -31,7 +30,7 @@ class CommandError(override val httpStatusCode: HttpStatusCode,private val error
 
 }
 
-class EmptyResult(override val httpStatusCode: HttpStatusCode = HttpStatusCode.OK):CommandResult() {
+class EmptyResult(override val httpStatusCode: HttpStatusCode = HttpStatusCode.OK): CommandResult() {
     override val commandStatus: CommandStatus = CommandStatus.OK
 
 }

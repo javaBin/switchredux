@@ -43,21 +43,21 @@ function App() {
   const [currentSlide,setCurrentSlide] = useState(initSlide);
 
 
-  /*
+
   useEffect(() => {
 
     const intervalID = setInterval(() => {
-      //clearInterval(intervalID);
-      fetch('http://localhost:8080?attime=' + Date.now())
+      clearInterval(intervalID);
+      fetch('http://localhost:8080/api/readSlide?attime=' + Date.now())
           .then(res => res.json())
           .then(loadedData => {
             setCurrentSlide(loadedData)
 
           });
-    }, 3000);
+    }, 1500);
     return () => clearInterval(intervalID);
   }, []);
-  */
+
 
 
   return (

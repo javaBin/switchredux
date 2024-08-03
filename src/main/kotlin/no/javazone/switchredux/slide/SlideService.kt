@@ -1,10 +1,10 @@
-package no.javazone.slide
+package no.javazone.switchredux.slide
 
 import java.util.concurrent.atomic.AtomicReference
 
 object SlideService {
     private val current:AtomicReference<Slide> = AtomicReference(TitleSlide("From server test"))
-    fun currentSlide():Slide {
+    fun currentSlide(): Slide {
         return current.get()
     }
 
