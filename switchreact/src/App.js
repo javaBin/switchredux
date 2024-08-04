@@ -4,8 +4,8 @@ import Slide from "./component/Slide";
 
 function App() {
 
-  //const initSlide = {id:"dummy",type:"title",titleText:"I am dummy"};
-  const initSlide = {id:"dummy",type:"NEXT_SLOT",roomList: [
+  const initSlide = {id:"dummy",type:"title",titleText:"I am dummy"};
+  /*const initSlide = {id:"dummy",type:"NEXT_SLOT",roomList: [
       {
         id: "0",
         room: "Room 1"
@@ -38,7 +38,7 @@ function App() {
         id: "7",
         room: "Room 8"
       }
-    ]};
+    ]};*/
 
   const [currentSlide,setCurrentSlide] = useState(initSlide);
 
@@ -54,7 +54,7 @@ function App() {
             setCurrentSlide(loadedData)
 
           });
-    }, 1500);
+    }, 10_000);
     return () => clearInterval(intervalID);
   }, []);
 

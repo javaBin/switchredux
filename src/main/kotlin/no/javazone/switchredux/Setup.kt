@@ -8,9 +8,12 @@ enum class SetupValue(val defaultValue:String) {
     DBPASSWORD("localdevuser"),
     DATABASE_TYPE("POSTGRES"),
     RUN_FROM_JAR("false"),
+    MINUTES_LIMIT_PROGRAM("10"),
 }
 object Setup {
     fun readValue(setupValue: SetupValue):String = setupValue.defaultValue
 
-    fun readBoolValue(setupValue: SetupValue) = (readValue(setupValue) == "true")
+    fun readBoolValue(setupValue: SetupValue):Boolean = (readValue(setupValue) == "true")
+
+    fun readLongValue(setupValue: SetupValue):Long = readValue(setupValue).toLong()
 }

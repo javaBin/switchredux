@@ -13,7 +13,6 @@
 }
 
 .titlePage {
-    font-family: "Limelight";
     display: flex;
     height: 100%;
     align-items: center;
@@ -49,6 +48,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto 1fr 1fr;
     grid-auto-flow: row dense;
+    font-family: "Josefin Sans", system-ui, sans-serif;
 }
 
 .nextSlotPage .nextSlotHeader {
@@ -56,8 +56,26 @@
     text-align: center;
     font-size: 50px;
     padding-bottom: 20px;
+    font-family: 'Limelight', cursive;
 }
 
 .nextSlotPage .nextSlotItem .nextSlotRoom {
     font-size: 40px;
+}
+
+
+.nextSlotPage .nextSlotItem .talkItem {
+    background-color: var(--text-color);
+    padding: 8px;
+    margin-right: 9px;
+    margin-bottom: 25px;
+    border: 2px solid var(--title-color);
+    border-radius: 8px;
+    padding-bottom: 25px;
+}
+
+.nextSlotPage .nextSlotItem .titleText {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'Limelight', cursive;
 }
