@@ -4,6 +4,7 @@ import org.jsonbuddy.*
 import java.net.*
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.jvm.optionals.*
 import kotlin.math.*
 
@@ -15,6 +16,19 @@ private data class SlotItem(
 )
 
 object ProgramService {
+    private val fixedTime:LocalDateTime = LocalDateTime.of(2023,9,6,8,55)
+    private val loadedProgram:AtomicReference<JsonObject?> = AtomicReference(null)
+    private val computedSlotItem:AtomicReference<Pair<LocalDateTime,ProgramSnapshot?>?> = AtomicReference(null)
+
+    init {
+        Thread() {
+            val programJson = JsonObject.read(URI.create("https://sleepingpill.javazone.no/public/allSessions/javazone_2023").toURL())
+            loadedProgram.set(programJson)
+            val slot = giveSnapshot(programJson, fixedTime)
+            computedSlotItem.set(Pair(fixedTime,slot))
+        }.start()
+    }
+
     private fun toSlotItem(talkObject:JsonObject,now:LocalDateTime):SlotItem? {
         if (!setOf("presentation","lightning-talk").contains(talkObject.stringValue("format").getOrNull())) {
             return null
@@ -34,6 +48,10 @@ object ProgramService {
             room = room,
             startSlot = slotTime
         )
+    }
+
+    fun getCurrentSlot():ProgramSnapshot? {
+        return computedSlotItem.get()?.second
     }
 
     fun giveSnapshot(programInfo:JsonObject,now:LocalDateTime):ProgramSnapshot? {
@@ -60,5 +78,5 @@ object ProgramService {
         return ProgramSnapshot(slotTime.toString(),roomList)
     }
 
-    fun loadProgram():JsonObject = JsonObject.read(URI.create("https://sleepingpill.javazone.no/public/allSessions/javazone_2023").toURL())
+
 }

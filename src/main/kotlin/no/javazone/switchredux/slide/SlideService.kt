@@ -14,16 +14,17 @@ object SlideService {
         current.set(TitleSlide("Initial slide"))
 
         Thread {
-            val programJson = ProgramService.loadProgram()
-            val slide = ProgramService.giveSnapshot(programJson, LocalDateTime.of(2023,9,6,8,55))
-            current.set(slide)
-            /*
+
             while (true) {
-                Thread.sleep(12000L)
                 current.set(TitleSlide("Updated slide"))
-                Thread.sleep(12000L)
+                Thread.sleep(3000L)
+                val programSlide = ProgramService.getCurrentSlot()
+                if (programSlide != null) {
+                    current.set(programSlide)
+                    Thread.sleep(12000L)
+                }
                 current.set(TitleSlide("Another slide"))
-            }*/
+            }
         }.start()
 
 

@@ -4,41 +4,8 @@ import Slide from "./component/Slide";
 
 function App() {
 
-  const initSlide = {id:"dummy",type:"title",titleText:"I am dummy"};
-  /*const initSlide = {id:"dummy",type:"NEXT_SLOT",roomList: [
-      {
-        id: "0",
-        room: "Room 1"
-      },
-      {
-        id: "1",
-        room: "Room 2"
-      },
-      {
-        id: "2",
-        room: "Room 3"
-      },
-      {
-        id: "3",
-        room: "Room 4"
-      },
-      {
-        id: "4",
-        room: "Room 5"
-      },
-      {
-        id: "5",
-        room: "Room 6"
-      },
-      {
-        id: "6",
-        room: "Room 7"
-      },
-      {
-        id: "7",
-        room: "Room 8"
-      }
-    ]};*/
+  const initSlide = {id:"dummy",type:"TITLE",titleText:"I am loading"};
+
 
   const [currentSlide,setCurrentSlide] = useState(initSlide);
 
@@ -47,14 +14,14 @@ function App() {
   useEffect(() => {
 
     const intervalID = setInterval(() => {
-      clearInterval(intervalID);
+      //clearInterval(intervalID);
       fetch('http://localhost:8080/api/readSlide?attime=' + Date.now())
           .then(res => res.json())
           .then(loadedData => {
             setCurrentSlide(loadedData)
 
           });
-    }, 10_000);
+    }, 1_000);
     return () => clearInterval(intervalID);
   }, []);
 
