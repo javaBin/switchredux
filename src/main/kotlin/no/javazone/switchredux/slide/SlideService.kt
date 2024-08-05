@@ -1,10 +1,25 @@
 package no.javazone.switchredux.slide
 
 import no.javazone.switchredux.program.*
-import java.time.*
 import java.util.concurrent.atomic.AtomicReference
 
+private val initSlideDeck:List<SlideItemGenerator> = listOf(
+    SlideItemGenerator(
+        factory = { TitleSlide("Welcome")},
+        displayMillis = 3000L
+    ),
+    SlideItemGenerator(
+        factory ={ProgramService.getCurrentSlot()},
+        displayMillis = 20_000L
+    ),
+    SlideItemGenerator(
+        factory = {NoDataFromServerSlide(SlideType.PARTNER_SUMMARY)},
+        displayMillis = 15_000L
+    )
+)
+
 object SlideService {
+    private val currentDeck:AtomicReference<List<SlideItemGenerator>> = AtomicReference(initSlideDeck)
     private val current:AtomicReference<Slide> = AtomicReference(TitleSlide("From server test"))
     fun currentSlide(): Slide {
         return current.get()
@@ -17,17 +32,15 @@ object SlideService {
 
 
             while (true) {
-                current.set(TitleSlide("Updated slide"))
-                Thread.sleep(3000L)
-                val programSlide = ProgramService.getCurrentSlot()
-                if (programSlide != null) {
-                    current.set(programSlide)
-                    Thread.sleep(12000L)
+                val currentRun:List<SlideItemGenerator> = currentDeck.get()
+                for (item in currentRun) {
+                    val slide:Slide? = item.factory()
+                    if (slide == null) {
+                        continue
+                    }
+                    current.set(slide)
+                    Thread.sleep(item.displayMillis)
                 }
-                current.set(TitleSlide("Another slide"))
-                Thread.sleep(12000L)
-                current.set(PartnerSummarySlide())
-                Thread.sleep(12000L)
             }
         }.start()
 
