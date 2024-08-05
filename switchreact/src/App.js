@@ -18,8 +18,13 @@ function App() {
       fetch('http://localhost:8080/api/readSlide?attime=' + Date.now())
           .then(res => res.json())
           .then(loadedData => {
-            setCurrentSlide(loadedData)
-
+            setCurrentSlide(prevCurrentState => {
+               if (prevCurrentState.id !==  loadedData.id) {
+                 return loadedData;
+               } else {
+                 return prevCurrentState;
+               }
+            });
           });
     }, 1_000);
     return () => clearInterval(intervalID);

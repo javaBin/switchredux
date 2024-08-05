@@ -1,6 +1,7 @@
 import TitlePage from "../pages/TitlePage";
 import ContentPage from "../pages/ContentPage";
 import NextSlotPage from "../pages/NextSlotPage";
+import PartnerSummaryPage from "../pages/PartnerSummaryPage";
 
 function Slide({content}) {
     switch(content.type) {
@@ -10,6 +11,8 @@ function Slide({content}) {
             return (<ContentPage content={content}></ContentPage>)
         case "NEXT_SLOT":
             return (<NextSlotPage content={content}></NextSlotPage> )
+        case "PARTNER_SUMMARY":
+            return (<PartnerSummaryPage />)
         default:
             return (<div>Unknown</div>)
     }

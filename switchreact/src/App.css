@@ -79,3 +79,33 @@
     font-weight: bold;
     font-family: 'Limelight', cursive;
 }
+
+.partnerSummaryPage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.partnerSummaryPage .partnerSummaryHeading {
+    text-align: center;
+    padding: 20px;
+    font-family: "Josefin Sans", system-ui, sans-serif;
+    font-size: 40px;
+}
+
+.partnerSummaryPage .partnerSummaryMain {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.partnerSummaryPage .partnerSummaryMain .partnerimg {
+    height: 150px;
+    max-height: 150px;
+    width: 150px;
+    max-width: 150px;
+    margin: 20px;
+
+}

@@ -15,6 +15,7 @@ object SlideService {
 
         Thread {
 
+
             while (true) {
                 current.set(TitleSlide("Updated slide"))
                 Thread.sleep(3000L)
@@ -24,6 +25,9 @@ object SlideService {
                     Thread.sleep(12000L)
                 }
                 current.set(TitleSlide("Another slide"))
+                Thread.sleep(12000L)
+                current.set(PartnerSummarySlide())
+                Thread.sleep(12000L)
             }
         }.start()
 
