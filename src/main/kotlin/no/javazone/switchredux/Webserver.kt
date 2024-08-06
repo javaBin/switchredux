@@ -1,21 +1,28 @@
 package no.javazone.switchredux
 
+import no.javazone.switchredux.program.*
+import no.javazone.switchredux.slide.*
 import org.eclipse.jetty.server.*
 import org.eclipse.jetty.server.handler.*
 import org.eclipse.jetty.servlet.*
 import org.eclipse.jetty.util.resource.*
 import org.eclipse.jetty.webapp.*
+import org.slf4j.*
 
 class Webserver {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
+            val logger = LoggerFactory.getLogger(Webserver::class.java)
+            logger.info("Starting Webserver")
+            SlideService.startup()
             Database.migrateWithFlyway()
             Webserver().start()
         }
     }
 
     fun start() {
+
         val server = Server(8080)
         val handlerCollection = ContextHandlerCollection()
         val handler = getHandler()
