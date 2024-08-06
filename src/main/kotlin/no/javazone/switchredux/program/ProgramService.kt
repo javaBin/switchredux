@@ -4,6 +4,7 @@ import org.jsonbuddy.*
 import org.slf4j.LoggerFactory
 import java.net.*
 import java.time.LocalDateTime
+import java.time.format.*
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.jvm.optionals.*
@@ -64,6 +65,8 @@ object ProgramService {
         return computedSlotItem.get()?.second
     }
 
+    private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
     fun giveSnapshot(programInfo:JsonObject,now:LocalDateTime):ProgramSnapshot? {
         val rawTalkList:List<JsonObject> = programInfo.requiredArray("sessions").objects { it }
         val allTalkList:List<SlotItem> = rawTalkList.mapNotNull { toSlotItem(it,now) }
@@ -85,7 +88,7 @@ object ProgramService {
                 }
             RoomSnapshot(roomName,talkList)
         }
-        return ProgramSnapshot(slotTime.toString(),roomList)
+        return ProgramSnapshot(slotTime.format(timeFormatter),roomList)
     }
 
 

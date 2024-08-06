@@ -14,13 +14,14 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
         displayMillis = 15_000L
     ),
     SlideItemGenerator(
-        factory = { NoDataFromServerSlide(SlideType.GAME_OF_LIFE) },
-        displayMillis = 20_000L,
-    ),
-    SlideItemGenerator(
         factory ={ProgramService.getCurrentSlot()},
         displayMillis = 20_000L
-    )
+    ),
+    SlideItemGenerator(
+        factory = { NoDataFromServerSlide(SlideType.GAME_OF_LIFE) },
+        displayMillis = 25_000L,
+    ),
+
 )
 
 

@@ -1,6 +1,6 @@
 function NextSlotPage({content}) {
     return (<div className={"nextSlotPage"}>
-        <header className={"nextSlotHeader"}>Your Header here</header>
+        <header className={"nextSlotHeader"}>Starting at {content.startsAt}</header>
         {content.roomList.map((roomItem) => {
             return (<div className={"nextSlotItem"} key={roomItem.roomName}>
                 <div className={"nextSlotRoom"}>{roomItem.roomName}</div>
