@@ -8,7 +8,7 @@ enum class CommandStatus {
 }
 abstract class CommandResult {
 
-    abstract val commandStatus: CommandStatus
+    open val commandStatus: CommandStatus = CommandStatus.OK
     open fun toJson():JsonObject {
         val res:JsonObject = JsonGenerator.generate(this) as JsonObject
         if (!res.containsKey("status")) {
@@ -18,7 +18,7 @@ abstract class CommandResult {
         return res
     }
 
-    abstract val httpStatusCode: HttpStatusCode;
+    open val httpStatusCode: HttpStatusCode = HttpStatusCode.OK;
 }
 
 class CommandError(override val httpStatusCode: HttpStatusCode, private val errormessage:String): CommandResult() {
@@ -31,6 +31,5 @@ class CommandError(override val httpStatusCode: HttpStatusCode, private val erro
 }
 
 class EmptyResult(override val httpStatusCode: HttpStatusCode = HttpStatusCode.OK): CommandResult() {
-    override val commandStatus: CommandStatus = CommandStatus.OK
 
 }

@@ -13,6 +13,7 @@ class Webserver {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
+            Config.loadValues(args)
             val logger = LoggerFactory.getLogger(Webserver::class.java)
             logger.info("Starting Webserver")
             SlideService.startup()

@@ -1,5 +1,6 @@
 package no.javazone.switchredux.program
 
+import no.javazone.switchredux.time.*
 import org.jsonbuddy.*
 import org.slf4j.LoggerFactory
 import java.net.*
@@ -18,7 +19,7 @@ private data class SlotItem(
 )
 
 object ProgramService {
-    private val fixedTime:LocalDateTime = LocalDateTime.of(2023,9,6,8,55)
+
     private val loadedProgram:AtomicReference<JsonObject?> = AtomicReference(null)
     private val computedSlotItem:AtomicReference<Pair<LocalDateTime,ProgramSnapshot?>?> = AtomicReference(null)
 
@@ -32,10 +33,11 @@ object ProgramService {
         logger.info("Starting program service")
         Thread() {
             logger.info("Loading program data")
-            val programJson = JsonObject.read(URI.create("https://sleepingpill.javazone.no/public/allSessions/javazone_2023").toURL())
+            val programJson = JsonObject.read(URI.create("https://sleepingpill.javazone.no/public/allSessions/javazone_2024").toURL())
             loadedProgram.set(programJson)
-            val slot = giveSnapshot(programJson, fixedTime)
-            computedSlotItem.set(Pair(fixedTime,slot))
+            val time = TimeService.currentTime()
+            val slot = giveSnapshot(programJson, time)
+            computedSlotItem.set(Pair(time,slot))
             logger.info("Loaded program")
         }.start()
     }
