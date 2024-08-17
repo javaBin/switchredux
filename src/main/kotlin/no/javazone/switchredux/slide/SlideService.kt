@@ -11,16 +11,17 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
     ),
     SlideItemGenerator(
         factory = {NoDataFromServerSlide(SlideType.PARTNER_SUMMARY)},
-        displayMillis = 15_000L
+        displayMillis = 5_000L
     ),
     SlideItemGenerator(
         factory ={ProgramService.getCurrentSlot()},
-        displayMillis = 20_000L
+        displayMillis = 15_000L
     ),
+    /*
     SlideItemGenerator(
         factory = { NoDataFromServerSlide(SlideType.GAME_OF_LIFE) },
         displayMillis = 25_000L,
-    ),
+    ),*/
 
 )
 

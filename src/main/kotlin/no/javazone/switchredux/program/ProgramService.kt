@@ -63,8 +63,24 @@ object ProgramService {
         )
     }
 
+    private fun checkToUpdate():ProgramSnapshot? {
+        val currentComputed:Pair<LocalDateTime,ProgramSnapshot?>? = computedSlotItem.get()
+        val now = TimeService.currentTime()
+        if (currentComputed?.first != null && currentComputed.first.plusMinutes(5).isAfter(now)) {
+            return currentComputed.second
+        }
+        val programJson = loadedProgram.get()?:return null
+        val newSlot = giveSnapshot(programJson, now)
+        computedSlotItem.set(Pair(now,newSlot))
+        return newSlot
+
+    }
+
+
+
     fun getCurrentSlot():ProgramSnapshot? {
-        return computedSlotItem.get()?.second
+        val current = checkToUpdate()
+        return current
     }
 
     private val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
