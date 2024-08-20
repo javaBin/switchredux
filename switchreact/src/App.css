@@ -123,3 +123,39 @@
 
 .gameOfLifePage .gameOfLifeCellEmpty {
 }
+
+.standInfoPage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.standInfoPage .standInfoHeader {
+    text-align: center;
+    padding: 20px;
+    font-family: "Josefin Sans", system-ui, sans-serif;
+    font-size: 45px;
+}
+
+.standInfoPage .standPerson {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 80px;
+}
+
+.standInfoPage .chatHeader {
+    margin-left: 20%;
+    font-size: 40px;
+    margin-top: 40px;
+}
+
+.standInfoPage .chatList {
+    margin-left: 20%;
+    font-size: 45px;
+}
+
+.standInfoPage .chatList .chatListItem {
+    font-family: "Josefin Sans", system-ui, sans-serif;
+    margin-bottom: 25px;
+}
+

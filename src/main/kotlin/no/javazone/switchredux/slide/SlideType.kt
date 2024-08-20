@@ -9,6 +9,7 @@ enum class SlideType {
     NEXT_SLOT,
     PARTNER_SUMMARY,
     GAME_OF_LIFE,
+    STAND_INFO,
     ;
 
 }

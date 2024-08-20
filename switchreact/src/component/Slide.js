@@ -3,6 +3,8 @@ import ContentPage from "../pages/ContentPage";
 import NextSlotPage from "../pages/NextSlotPage";
 import PartnerSummaryPage from "../pages/PartnerSummaryPage";
 import GameOfLifePage from "../pages/GameOfLifePage";
+import {StrictMode} from "react";
+import StandInfoPage from "../pages/StandInfoPage";
 
 function Slide({content}) {
     switch(content.type) {
@@ -16,6 +18,8 @@ function Slide({content}) {
             return (<PartnerSummaryPage />)
         case "GAME_OF_LIFE":
             return (<GameOfLifePage ></GameOfLifePage>)
+        case "STAND_INFO":
+            return (<StandInfoPage content={content}></StandInfoPage>);
         default:
             return (<div>Unknown</div>)
     }

@@ -1,10 +1,12 @@
 package no.javazone.switchredux.slide
 
 import no.javazone.switchredux.program.*
+import no.javazone.switchredux.stand.*
 import java.util.concurrent.atomic.AtomicReference
 
 
 private val initSlideDeck:List<SlideItemGenerator> = listOf(
+
     SlideItemGenerator(
         factory = { TitleSlide("Welcome")},
         displayMillis = 3000L
@@ -17,12 +19,15 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
         factory ={ProgramService.getCurrentSlot()},
         displayMillis = 15_000L
     ),
-    /*
+
     SlideItemGenerator(
         factory = { NoDataFromServerSlide(SlideType.GAME_OF_LIFE) },
-        displayMillis = 25_000L,
-    ),*/
-
+        displayMillis = 10_000L,
+    ),
+    SlideItemGenerator(
+        factory = { StandService.readSlide() },
+        displayMillis = 10_000L,
+    )
 )
 
 
