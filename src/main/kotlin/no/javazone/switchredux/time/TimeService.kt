@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicReference
 
 object TimeService {
     private val timeSource:AtomicReference<TimeSource> by lazy {
-        val clockType = ClockType.valueOf(ConfigVariable.TIME_SOURCE.readValue())
+        val clockType = ClockType.valueOf(SetupValue.TIME_SOURCE.readValue())
         AtomicReference(clockType.factory())
     }
 

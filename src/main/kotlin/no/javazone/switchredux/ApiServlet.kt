@@ -27,6 +27,7 @@ class ApiServlet:HttpServlet() {
         resp.addHeader("Access-Control-Allow-Origin", "http://localhost:3000")
         resp.addHeader("Access-Control-Allow-Headers", "content-type,logintoken")
         resp.addHeader("Access-Control-Allow-Methods", "GET,POST")
+        resp.status = commandResult.httpStatusCode.status
         commandResult.toJson().toJson(resp.writer)
     }
 

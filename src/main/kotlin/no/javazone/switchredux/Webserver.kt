@@ -13,18 +13,20 @@ class Webserver {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            Config.loadValues(args)
+            Setup.loadValues(args)
             val logger = LoggerFactory.getLogger(Webserver::class.java)
             logger.info("Starting Webserver")
             SlideService.startup()
-            Database.migrateWithFlyway()
+            if (SetupValue.USE_DB.readBoolValue()) {
+                Database.migrateWithFlyway()
+            }
             Webserver().start()
         }
     }
 
     fun start() {
 
-        val server = Server(8080)
+        val server = Server(SetupValue.SERVER_PORT.readLongValue().toInt())
         val handlerCollection = ContextHandlerCollection()
         val handler = getHandler()
         handlerCollection.addHandler(handler)
@@ -38,7 +40,7 @@ class Webserver {
         webAppContext.getInitParams().put("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false")
         webAppContext.setContextPath("/");
 
-        if (Setup.readBoolValue(SetupValue.RUN_FROM_JAR)) {
+        if (SetupValue.RUN_FROM_JAR.readBoolValue()) {
             // Prod ie running from jar
             webAppContext.baseResource =
                 Resource.newClassPathResource("static", false, false)
