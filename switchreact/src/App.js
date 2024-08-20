@@ -12,10 +12,11 @@ function App() {
 
 
   useEffect(() => {
+    const serveraddress = process.env.REACT_APP_API_URL || ""
 
     const intervalID = setInterval(() => {
       //clearInterval(intervalID);
-      fetch('http://localhost:8080/api/readSlide?attime=' + Date.now())
+      fetch(serveraddress + '/api/readSlide?attime=' + Date.now())
           .then(res => res.json())
           .then(loadedData => {
             setCurrentSlide(prevCurrentState => {
