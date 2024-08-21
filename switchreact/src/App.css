@@ -137,25 +137,31 @@
     font-size: 45px;
 }
 
-.standInfoPage .standPerson {
-    margin-top: 50px;
-    text-align: center;
-    font-size: 80px;
+.standInfoPage .standPersonSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.standInfoPage .chatHeader {
-    margin-left: 20%;
-    font-size: 40px;
+.standInfoPage .standPersonSection .oneStandPerson .standPerson {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.standInfoPage .standPersonSection .oneStandPerson .chatHeader {
+    margin-top: 50px;
+    font-size: 35px;
+    font-family: "Josefin Sans", system-ui, sans-serif;
+}
+
+.standInfoPage .standPersonSection .oneStandPerson .chatList {
     margin-top: 40px;
 }
 
-.standInfoPage .chatList {
-    margin-left: 20%;
-    font-size: 45px;
-}
-
-.standInfoPage .chatList .chatListItem {
-    font-family: "Josefin Sans", system-ui, sans-serif;
-    margin-bottom: 25px;
+.standInfoPage .standPersonSection .oneStandPerson .chatList .chatListItem {
+    font-size: 30px;
 }
 
