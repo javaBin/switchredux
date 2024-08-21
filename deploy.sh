@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 ./package.sh
-eb deploy switchredux-prod
+eb deploy switchtwo-prod
 rm app.zip

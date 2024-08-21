@@ -16,7 +16,9 @@ class TransferredTimeSource:TimeSource {
     override fun description(): String = "Transfered time"
 
     companion object {
-        private val transferTimeDefinition:AtomicReference<TransferTimeDefinition> = AtomicReference(TransferTimeDefinition(System.currentTimeMillis(),LocalDateTime.now().plusDays(1)))
+        private val transferTimeDefinition:AtomicReference<TransferTimeDefinition> = AtomicReference(
+            TransferTimeDefinition(System.currentTimeMillis(),LocalDateTime.of(2024,9,4,8,55))
+        )
         private val dateFormat = DateTimeFormatter.ofPattern("yyyMMddHHmm")
 
         private fun giveTime():LocalDateTime {
