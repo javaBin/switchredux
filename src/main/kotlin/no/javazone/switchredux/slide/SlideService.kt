@@ -2,7 +2,8 @@ package no.javazone.switchredux.slide
 
 import no.javazone.switchredux.program.*
 import no.javazone.switchredux.stand.*
-import java.util.concurrent.atomic.AtomicReference
+import org.slf4j.LoggerFactory
+import java.util.concurrent.atomic.*
 
 
 private val initSlideDeck:List<SlideItemGenerator> = listOf(
@@ -42,25 +43,39 @@ object SlideService {
         ProgramService.startUp()
     }
 
+
+    val slideLoaderThread = Thread {
+        var doRun = true
+        while (doRun) {
+            val currentRun:List<SlideItemGenerator> = currentDeck.get()
+            for (item in currentRun) {
+                val slide:Slide? = item.factory()
+                if (slide == null) {
+                    continue
+                }
+                current.set(slide)
+                try {
+                    Thread.sleep(item.displayMillis)
+                } catch (e:InterruptedException) {
+                    logger.info("Interrupted slide loader thread")
+                    doRun = false
+                    break
+                }
+            }
+            if (doRun && Thread.currentThread().isInterrupted) {
+                doRun = false
+            }
+        }
+        println("Stopping slide loader thread")
+    }.let {
+        it.start()
+        it
+    }
+
     init {
         current.set(TitleSlide("Initial slide"))
 
-        Thread {
-
-
-            while (true) {
-                val currentRun:List<SlideItemGenerator> = currentDeck.get()
-                for (item in currentRun) {
-                    val slide:Slide? = item.factory()
-                    if (slide == null) {
-                        continue
-                    }
-                    current.set(slide)
-                    Thread.sleep(item.displayMillis)
-                }
-            }
-        }.start()
-
-
     }
+
+    private val logger = LoggerFactory.getLogger(SlideService::class.java)
 }

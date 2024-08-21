@@ -1,8 +1,8 @@
 branch-defaults:
   master:
-    environment: switchredux-prod
+    environment: switchtwo-prod
 global:
-  application_name: switchredux
+  application_name: switchtwo
   default_ec2_keyname: javabin
   default_region: eu-central-1
   profile: javabin

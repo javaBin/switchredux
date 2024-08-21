@@ -21,6 +21,12 @@ class Webserver {
                 Database.migrateWithFlyway()
             }
             Webserver().start()
+            Runtime.getRuntime().addShutdownHook(Thread {
+                println("Shutdown hook triggered. Initiating graceful shutdown...")
+                SlideService.slideLoaderThread.interrupt()
+                SlideService.slideLoaderThread.join()
+                println("Graceful shutdown complete")
+            })
         }
     }
 
