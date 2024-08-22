@@ -8,7 +8,7 @@ function NextSlotPage({content}) {
                 {roomItem.talkList.map((talkItem) => {
                     return (<div className={"talkItem"} key={talkItem.title}>
                         <div className={"titleText"}>{talkItem.title}</div>
-                        <div>{talkItem.speaker}</div>
+                        <div className={"speakerText"}>{talkItem.speaker}</div>
                     </div>)
                 })}
 

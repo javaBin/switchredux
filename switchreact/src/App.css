@@ -61,12 +61,14 @@
 
 .nextSlotPage .nextSlotItem .nextSlotRoom {
     font-size: 40px;
+    font-family: 'Limelight', cursive;
+    margin-left: 16px;
 }
 
 
 .nextSlotPage .nextSlotItem .talkItem {
     background-color: var(--text-color);
-    padding: 8px;
+    padding: 16px;
     margin-right: 9px;
     margin-bottom: 25px;
     border: 2px solid var(--title-color);
@@ -77,7 +79,12 @@
 .nextSlotPage .nextSlotItem .titleText {
     font-size: 25px;
     font-weight: bold;
-    font-family: 'Limelight', cursive;
+    font-family: "Josefin Sans", system-ui, sans-serif;
+}
+
+.nextSlotPage .nextSlotItem .speakerText {
+    margin-top: 20px;
+    font-size: 25px;
 }
 
 .partnerSummaryPage {
@@ -99,6 +106,8 @@
     flex-grow: 1;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin-left: 150px;
+    margin-right: 150px;
 }
 
 .partnerSummaryPage .partnerSummaryMain .partnerimg {
@@ -141,14 +150,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-top: 200px;
+    margin-left: 750px;
+    margin-right: 750px;
 }
 
 .standInfoPage .standPersonSection .oneStandPerson .standPerson {
     font-size: 60px;
     margin-bottom: 20px;
+    font-family: 'Limelight', cursive;
 }
 
 .standInfoPage .standPersonSection .oneStandPerson .chatHeader {
@@ -163,5 +173,7 @@
 
 .standInfoPage .standPersonSection .oneStandPerson .chatList .chatListItem {
     font-size: 30px;
+    font-family: "Josefin Sans", system-ui, sans-serif;
+    padding: 10px;
 }
 

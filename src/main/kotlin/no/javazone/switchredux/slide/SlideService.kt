@@ -7,27 +7,32 @@ import java.util.concurrent.atomic.*
 
 
 private val initSlideDeck:List<SlideItemGenerator> = listOf(
+
     SlideItemGenerator(
+        factory = { TitleSlide("Welcome. The awzone party will soon start. Get out")},
+        displayMillis = 3000L
+    ),
+    /*SlideItemGenerator(
         factory = { StandService.readSlide() },
         displayMillis = 10_000L,
     ),
-    SlideItemGenerator(
-        factory = { TitleSlide("Welcome")},
-        displayMillis = 3000L
-    ),
+
     SlideItemGenerator(
         factory = {NoDataFromServerSlide(SlideType.PARTNER_SUMMARY)},
-        displayMillis = 5_000L
+        displayMillis = 45_000L
     ),
     SlideItemGenerator(
         factory ={ProgramService.getCurrentSlot()},
         displayMillis = 15_000L
     ),
+
+
+
     SlideItemGenerator(
         factory = { NoDataFromServerSlide(SlideType.GAME_OF_LIFE) },
         displayMillis = 10_000L,
     ),
-
+    */
 
 
 

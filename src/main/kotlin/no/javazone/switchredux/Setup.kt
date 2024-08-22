@@ -17,6 +17,8 @@ enum class SetupValue(val defaultValue:String) {
     MINUTES_LIMIT_PROGRAM("10"),
     SERVER_PORT("8080"),
     ADMIN_PASSWORD("bingo"),
+    SLACK_TOKEN(""),
+    SLACK_CHANNELID(""),
     ;
 
     fun readValue():String = readValue(this)
