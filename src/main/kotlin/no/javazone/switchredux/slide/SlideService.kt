@@ -3,6 +3,7 @@ package no.javazone.switchredux.slide
 import no.javazone.switchredux.program.*
 import no.javazone.switchredux.slack.*
 import no.javazone.switchredux.stand.*
+import no.javazone.switchredux.time.*
 import org.slf4j.LoggerFactory
 import java.util.concurrent.atomic.*
 
@@ -64,6 +65,12 @@ object SlideService {
         while (doRun) {
             val currentRun:List<SlideItemGenerator> = currentDeck.get()
             for (item in currentRun) {
+                if (item.time != null) {
+                    val currentTime = TimeService.currentTime()
+                    if (currentTime.isBefore(item.time.from) || currentTime.isAfter(item.time.to)) {
+                        continue
+                    }
+                }
                 do {
                     val slide: Slide? = item.factory()
                     if (slide == null) {

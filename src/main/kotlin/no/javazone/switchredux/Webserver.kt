@@ -16,6 +16,7 @@ class Webserver {
             Setup.loadValues(args)
             val logger = LoggerFactory.getLogger(Webserver::class.java)
             logger.info("Starting Webserver")
+            SlackService.writeMessage("Starting up")
             SlideService.startup()
             if (SetupValue.USE_DB.readBoolValue()) {
                 Database.migrateWithFlyway()
@@ -24,12 +25,14 @@ class Webserver {
             logger.info("Slack service started with threadid $slackThreadid")
             Webserver().start()
             Runtime.getRuntime().addShutdownHook(Thread {
+                SlackService.writeMessage("Staring shutdown")
                 println("Shutdown hook triggered. Initiating graceful shutdown...")
                 SlideService.slideLoaderThread.interrupt()
                 SlackService.slackServiceThread.interrupt()
                 SlideService.slideLoaderThread.join()
                 SlackService.slackServiceThread.join()
                 println("Graceful shutdown complete")
+                SlackService.writeMessage("Shutdown")
             })
         }
     }

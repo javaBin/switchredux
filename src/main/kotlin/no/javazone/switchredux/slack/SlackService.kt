@@ -194,7 +194,6 @@ object SlackService {
         reader.forEachLine { response.append(it) }
         reader.close()
 
-        println("Got response: $response")
 
     }
 }
