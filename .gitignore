@@ -43,4 +43,6 @@ target/
 src/main/resources/static/
 src/main/resources/private/
 app.zip
+switchreact/public/photo/
+
 

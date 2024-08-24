@@ -186,3 +186,17 @@
     padding: 10px;
 }
 
+.imagePage {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.imagePage img {
+    flex: 1 0 auto;
+    width: auto;
+    height: calc(100% - 20px); /* Adjust the height to account for padding */
+    padding: 15px;         /* Add padding around the image */
+    box-sizing: border-box; /* Ensure padding is included in the element's width and height */
+}
+

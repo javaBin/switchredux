@@ -10,6 +10,7 @@ enum class SlideType {
     PARTNER_SUMMARY,
     GAME_OF_LIFE,
     STAND_INFO,
+    IMAGE_SLIDE,
     ;
 
 }
