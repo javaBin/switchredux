@@ -19,9 +19,15 @@ enum class SetupValue(val defaultValue:String) {
     ADMIN_PASSWORD("bingo"),
     SLACK_TOKEN(""),
     SLACK_CHANNELID(""),
+    SLACK_BOT_USERID(""),
     ;
 
     fun readValue():String = readValue(this)
+
+    fun valueOrNull():String? {
+        val readValue = readValue()
+        return readValue.ifEmpty { null }
+    }
 
     fun readBoolValue():Boolean = (readValue(this) == "true")
 

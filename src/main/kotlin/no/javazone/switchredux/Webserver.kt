@@ -1,6 +1,6 @@
 package no.javazone.switchredux
 
-import no.javazone.switchredux.program.*
+import no.javazone.switchredux.slack.*
 import no.javazone.switchredux.slide.*
 import org.eclipse.jetty.server.*
 import org.eclipse.jetty.server.handler.*
@@ -20,11 +20,15 @@ class Webserver {
             if (SetupValue.USE_DB.readBoolValue()) {
                 Database.migrateWithFlyway()
             }
+            val slackThreadid =  SlackService.slackServiceThread.id
+            logger.info("Slack service started with threadid $slackThreadid")
             Webserver().start()
             Runtime.getRuntime().addShutdownHook(Thread {
                 println("Shutdown hook triggered. Initiating graceful shutdown...")
                 SlideService.slideLoaderThread.interrupt()
+                SlackService.slackServiceThread.interrupt()
                 SlideService.slideLoaderThread.join()
+                SlackService.slackServiceThread.join()
                 println("Graceful shutdown complete")
             })
         }

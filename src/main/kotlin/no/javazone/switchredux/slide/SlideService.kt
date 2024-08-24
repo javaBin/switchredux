@@ -1,6 +1,7 @@
 package no.javazone.switchredux.slide
 
 import no.javazone.switchredux.program.*
+import no.javazone.switchredux.slack.*
 import no.javazone.switchredux.stand.*
 import org.slf4j.LoggerFactory
 import java.util.concurrent.atomic.*
@@ -10,8 +11,15 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
 
     SlideItemGenerator(
         factory = { TitleSlide("Welcome. The awzone party will soon start. Get out")},
-        displayMillis = 3000L
+        displayMillis = 1500L
     ),
+
+    SlideItemGenerator(
+        factory = { SlackService.currentSlide() },
+        displayMillis = 6000L,
+        callMeAgain = true
+    ),
+
     /*SlideItemGenerator(
         factory = { StandService.readSlide() },
         displayMillis = 10_000L,
@@ -56,18 +64,21 @@ object SlideService {
         while (doRun) {
             val currentRun:List<SlideItemGenerator> = currentDeck.get()
             for (item in currentRun) {
-                val slide:Slide? = item.factory()
-                if (slide == null) {
-                    continue
-                }
-                current.set(slide)
-                try {
-                    Thread.sleep(item.displayMillis)
-                } catch (e:InterruptedException) {
-                    logger.info("Interrupted slide loader thread")
-                    doRun = false
-                    break
-                }
+                do {
+                    val slide: Slide? = item.factory()
+                    if (slide == null) {
+                        break
+                    }
+                    current.set(slide)
+                    try {
+                        Thread.sleep(item.displayMillis)
+                    } catch (e: InterruptedException) {
+                        logger.info("Interrupted slide loader thread")
+                        doRun = false
+                        break
+                    }
+                    val sameAgain:Boolean = item.callMeAgain
+                } while (doRun && sameAgain)
             }
             if (doRun && Thread.currentThread().isInterrupted) {
                 doRun = false

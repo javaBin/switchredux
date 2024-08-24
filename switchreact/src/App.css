@@ -22,6 +22,11 @@
     font-weight: bold;
 }
 
+.titlePage .titleText {
+    margin-left: 40px;
+    margin-right: 0px;
+}
+
 .contentPage {
     font-size: 70px;
     display: flex;
