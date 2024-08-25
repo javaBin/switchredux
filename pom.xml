@@ -92,6 +92,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.dropbox.core</groupId>
+            <artifactId>dropbox-core-sdk</artifactId>
+            <version>5.4.2</version>
+        </dependency>
+
 
 
     </dependencies>

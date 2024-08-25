@@ -63,6 +63,7 @@ class Webserver {
         }
 
         webAppContext.addServlet(ServletHolder(ApiServlet()), "/api/*")
+        webAppContext.addServlet(ServletHolder(ImageServlet()), "/dropbox/*")
         return webAppContext
     }
 }

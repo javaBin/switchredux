@@ -1,5 +1,6 @@
 package no.javazone.switchredux.slide
 
+import no.javazone.switchredux.dropbox.*
 import no.javazone.switchredux.program.*
 import no.javazone.switchredux.slack.*
 import no.javazone.switchredux.stand.*
@@ -10,17 +11,17 @@ import java.util.concurrent.atomic.*
 
 private val initSlideDeck:List<SlideItemGenerator> = listOf(
     SlideItemGenerator(
-        factory = { NoDataFromServerSlide(SlideType.IMAGE_SLIDE) },
+        factory = { DropboxService.nextSlide() },
         displayMillis = 15_000L
-    )
+    ),
 
-    /*
+
     SlideItemGenerator(
         factory ={ProgramService.getCurrentSlot()},
         displayMillis = 15_000L
     ),
     SlideItemGenerator(
-        factory = { TitleSlide("Welcome. The awzone party will soon start. Get out")},
+        factory = { TitleSlide("Welcome to JavaZone.")},
         displayMillis = 1500L
     ),
 
@@ -39,10 +40,6 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
         factory = {NoDataFromServerSlide(SlideType.PARTNER_SUMMARY)},
         displayMillis = 45_000L
     ),
-    SlideItemGenerator(
-        factory ={ProgramService.getCurrentSlot()},
-        displayMillis = 15_000L
-    ),
 
 
 
@@ -50,7 +47,7 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
         factory = { NoDataFromServerSlide(SlideType.GAME_OF_LIFE) },
         displayMillis = 10_000L,
     ),
-    */
+
 
 
 

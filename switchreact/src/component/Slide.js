@@ -22,7 +22,7 @@ function Slide({content}) {
         case "STAND_INFO":
             return (<StandInfoPage content={content}></StandInfoPage>);
         case "IMAGE_SLIDE":
-            return (<ImagePage></ImagePage>)
+            return (<ImagePage content={content}></ImagePage>)
         default:
             return (<div>Unknown</div>)
     }

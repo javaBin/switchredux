@@ -1,8 +1,6 @@
-const ImagePage = () => {
+const ImagePage = ({content}) => {
     return (<div className={"imagePage"}>
-        <img src={"/photo/foto1.jpg"}/>
-        <img src={"/photo/foto2.jpg"}/>
-        <img src={"/photo/foto3.jpg"}/>
+        {content.imagePathList.map((item, index) => (<img key={index} src={item} />))}
     </div>)
 };
 
