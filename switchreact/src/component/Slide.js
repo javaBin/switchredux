@@ -6,6 +6,7 @@ import GameOfLifePage from "../pages/GameOfLifePage";
 import {StrictMode} from "react";
 import StandInfoPage from "../pages/StandInfoPage";
 import ImagePage from "../pages/ImagePage";
+import ParterImagePage from "../pages/ParterImagePage";
 
 function Slide({content}) {
     switch(content.type) {
@@ -16,7 +17,8 @@ function Slide({content}) {
         case "NEXT_SLOT":
             return (<NextSlotPage content={content}></NextSlotPage> )
         case "PARTNER_SUMMARY":
-            return (<PartnerSummaryPage />)
+            //return (<PartnerSummaryPage />)
+            return (<ParterImagePage></ParterImagePage>);
         case "GAME_OF_LIFE":
             return (<GameOfLifePage ></GameOfLifePage>)
         case "STAND_INFO":

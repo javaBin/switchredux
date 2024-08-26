@@ -20,7 +20,6 @@ enum class SetupValue(val defaultValue:String) {
     SLACK_TOKEN(""),
     SLACK_CHANNELID(""),
     SLACK_BOT_USERID(""),
-    DROPBOX_ACCESS(""),
     ;
 
     fun readValue():String = readValue(this)

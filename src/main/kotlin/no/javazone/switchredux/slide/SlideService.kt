@@ -11,9 +11,16 @@ import java.util.concurrent.atomic.*
 
 private val initSlideDeck:List<SlideItemGenerator> = listOf(
     SlideItemGenerator(
+        factory = {NoDataFromServerSlide(SlideType.PARTNER_SUMMARY)},
+        displayMillis = 12_000L
+    ),
+
+    /*
+    SlideItemGenerator(
         factory = { TitleSlide("Welcome to JavaZone.")},
         displayMillis = 1500L
     ),
+
     SlideItemGenerator(
         factory = { DropboxService.nextSlide() },
         displayMillis = 15_000L
@@ -37,10 +44,7 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
         displayMillis = 10_000L,
     ),
 
-    SlideItemGenerator(
-        factory = {NoDataFromServerSlide(SlideType.PARTNER_SUMMARY)},
-        displayMillis = 12_000L
-    ),
+
 
 
 
@@ -50,7 +54,7 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
         displayMillis = 10_000L,
     ),
 
-
+    */
 
 
 

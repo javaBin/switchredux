@@ -163,8 +163,12 @@ object SlackService {
     }
 
     fun writeMessage(message:String) {
-        val token = SetupValue.SLACK_TOKEN.valueOrNull()?:return
-        val channelId    = SetupValue.SLACK_CHANNELID.valueOrNull()?:return
+        val token:String? = SetupValue.SLACK_TOKEN.valueOrNull()
+        val channelId:String?    = SetupValue.SLACK_CHANNELID.valueOrNull()
+        if (token == null || channelId == null) {
+            logger.info("SlackMessage: $message")
+            return
+        }
 
         val url = URI.create("https://slack.com/api/chat.postMessage").toURL()
         val connection = url.openConnection() as HttpURLConnection
@@ -196,4 +200,7 @@ object SlackService {
 
 
     }
+
+    private val logger = LoggerFactory.getLogger(SlackService::class.java)
+
 }

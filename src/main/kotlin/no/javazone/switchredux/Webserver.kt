@@ -1,5 +1,6 @@
 package no.javazone.switchredux
 
+import no.javazone.switchredux.dropbox.*
 import no.javazone.switchredux.slack.*
 import no.javazone.switchredux.slide.*
 import org.eclipse.jetty.server.*
@@ -22,15 +23,18 @@ class Webserver {
                 Database.migrateWithFlyway()
             }
             val slackThreadid =  SlackService.slackServiceThread.id
-            logger.info("Slack service started with threadid $slackThreadid")
+            val dropboxThreadid = DropboxService.serviceThread.id
+            logger.info("Slack service started with threadid $slackThreadid and dropbox with threadid $dropboxThreadid")
             Webserver().start()
             Runtime.getRuntime().addShutdownHook(Thread {
                 SlackService.writeMessage("Staring shutdown")
                 println("Shutdown hook triggered. Initiating graceful shutdown...")
                 SlideService.slideLoaderThread.interrupt()
                 SlackService.slackServiceThread.interrupt()
+                DropboxService.serviceThread.interrupt()
                 SlideService.slideLoaderThread.join()
                 SlackService.slackServiceThread.join()
+                DropboxService.serviceThread.join()
                 println("Graceful shutdown complete")
                 SlackService.writeMessage("Shutdown")
             })

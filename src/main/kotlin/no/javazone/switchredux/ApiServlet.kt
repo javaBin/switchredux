@@ -1,6 +1,7 @@
 package no.javazone.switchredux
 
 import no.javazone.switchredux.commands.*
+import no.javazone.switchredux.dropbox.*
 import no.javazone.switchredux.time.*
 import org.jsonbuddy.JsonObject
 import org.jsonbuddy.pojo.PojoMapper
@@ -11,6 +12,7 @@ class ApiServlet:HttpServlet() {
     override fun doGet(req: HttpServletRequest, resp: HttpServletResponse) {
         val command:Command? = when(req.pathInfo) {
             "/readSlide" -> ViewSlideCommand()
+            "/dropboxinfo" -> ReadDropboxInfoCommand()
             "/time" -> ShowTimeCommand()
             else -> null
         }
@@ -36,6 +38,8 @@ class ApiServlet:HttpServlet() {
         val inputBody = JsonObject.read(req.reader)
         val commandClass:KClass<out Command>? = when (req.pathInfo) {
             "/admin/updateTranferedTime" -> UpdateTransferedTimeCommand::class
+            "/admin/updateDropboxAcess" -> UpdateDropboxAccessCommand::class
+
             else -> null
         }
         if (commandClass == null) {
