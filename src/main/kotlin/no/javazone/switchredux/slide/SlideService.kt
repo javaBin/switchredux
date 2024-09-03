@@ -10,6 +10,8 @@ import java.util.concurrent.atomic.*
 
 
 private val initSlideDeck:List<SlideItemGenerator> = listOf(
+
+
     SlideItemGenerator(
         factory ={ProgramService.getCurrentSlot()},
         displayMillis = 20_000L,
@@ -20,6 +22,7 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
         displayMillis = 1500L,
         slideGeneratorType = SlideGeneratorType.LISTEN
     ),
+
     SlideItemGenerator(
         factory = {NoDataFromServerSlide(SlideType.PARTNER_SUMMARY)},
         displayMillis = 5_000L,
@@ -43,25 +46,7 @@ private val initSlideDeck:List<SlideItemGenerator> = listOf(
         displayMillis = 10_000L,
         slideGeneratorType = SlideGeneratorType.LISTEN
     ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 )
 
 

@@ -6,7 +6,7 @@ const StandInfoPage = ({content}) => {
                 <div key={standPersonIndex} className={"oneStandPerson"}>
                     <div className={"oneStandPerson"}>
                         <div className={"standPerson"}>{standPerson.name}</div>
-                        <div className={"chatHeader"}>Lets chat about</div>
+                        <div className={"chatHeader"}>Let's chat about</div>
                         <ul className={"chatList"}>
                             {standPerson.chatList.map((chatItem, chatItemIndex) =>
                                 <li className={"chatListItem"} key={chatItemIndex}>{chatItem}</li>
