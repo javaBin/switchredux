@@ -1,6 +1,6 @@
 const StandInfoPage = ({content}) => {
     return (<div className={"standInfoPage"}>
-        <div className={"standInfoHeader"}>Visit the JavaBin stand now and meet...</div>
+        <div className={"standInfoHeader"}>Visit the javaBin stand now and meet</div>
         <div className={"standPersonSection"}>
             {content.personList.map((standPerson,standPersonIndex) =>
                 <div key={standPersonIndex} className={"oneStandPerson"}>

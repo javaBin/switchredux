@@ -1,6 +1,6 @@
 function TitlePage({content}) {
     return (<div className={"titlePage"}>
-        <div className={"titleText"}>{content.titleText}</div>
+            <div className={"titleText"}>{content.titleText}</div>
     </div>)
 }
 

@@ -7,10 +7,17 @@ data class SliteItemTime(
     val to:LocalDateTime,
 )
 
+enum class SlideGeneratorType {
+    ALWAYS,
+    MANAGER,
+    LISTEN
+}
+
 data class SlideItemGenerator(
     val factory:() -> Slide?,
     val displayMillis:Long,
     val callMeAgain:Boolean = false,
     val time:SliteItemTime? = null,
+    val slideGeneratorType: SlideGeneratorType,
 ) {
 }

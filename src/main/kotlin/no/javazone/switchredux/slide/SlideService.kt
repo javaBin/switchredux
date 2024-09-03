@@ -11,40 +11,45 @@ import java.util.concurrent.atomic.*
 
 private val initSlideDeck:List<SlideItemGenerator> = listOf(
     SlideItemGenerator(
-        factory = { TitleSlide("Welcome to JavaZone.")},
-        displayMillis = 1500L
+        factory ={ProgramService.getCurrentSlot()},
+        displayMillis = 20_000L,
+        slideGeneratorType = SlideGeneratorType.MANAGER
     ),
-
+    SlideItemGenerator(
+        factory = { TitleSlide("Welcome to JavaZone")},
+        displayMillis = 1500L,
+        slideGeneratorType = SlideGeneratorType.LISTEN
+    ),
     SlideItemGenerator(
         factory = {NoDataFromServerSlide(SlideType.PARTNER_SUMMARY)},
-        displayMillis = 12_000L
+        displayMillis = 5_000L,
+        slideGeneratorType = SlideGeneratorType.ALWAYS,
     ),
-
-
-
-    SlideItemGenerator(
-        factory = { if (ProgramService.getCurrentSlot() == null) DropboxService.nextSlide() else null },
-        displayMillis = 15_000L
-    ),
-
-
-    SlideItemGenerator(
-        factory ={ProgramService.getCurrentSlot()?:NoDataFromServerSlide(SlideType.GAME_OF_LIFE)},
-        displayMillis = 15_000L
-    ),
-
-
 
     SlideItemGenerator(
         factory = { SlackService.currentSlide() },
         displayMillis = 6000L,
-        callMeAgain = true
+        callMeAgain = true,
+        slideGeneratorType = SlideGeneratorType.ALWAYS
     ),
 
     SlideItemGenerator(
+        factory = { DropboxService.nextSlide() },
+        displayMillis = 15_000L,
+        slideGeneratorType = SlideGeneratorType.LISTEN
+    ),
+    SlideItemGenerator(
         factory = { StandService.readSlide() },
         displayMillis = 10_000L,
+        slideGeneratorType = SlideGeneratorType.LISTEN
     ),
+
+
+
+
+
+
+
 
 
 
@@ -76,6 +81,7 @@ object SlideService {
         var doRun = true
         while (doRun) {
             val currentRun:List<SlideItemGenerator> = currentDeck.get()
+            var managerSlide:Slide? = null
             for (item in currentRun) {
                 if (item.time != null) {
                     val currentTime = TimeService.currentTime()
@@ -84,7 +90,13 @@ object SlideService {
                     }
                 }
                 do {
+                    if (item.slideGeneratorType == SlideGeneratorType.LISTEN && managerSlide != null) {
+                        break
+                    }
                     val slide: Slide? = item.factory()
+                    if (item.slideGeneratorType == SlideGeneratorType.MANAGER) {
+                        managerSlide = slide
+                    }
                     if (slide == null) {
                         break
                     }

@@ -18,13 +18,12 @@
     align-items: center;
     justify-content: center;
     color: var(--title-color);
-    font-size: 90px;
-    font-weight: bold;
 }
 
 .titlePage .titleText {
-    margin-left: 40px;
-    margin-right: 0px;
+    font-size: 210px;
+    justify-content: center;
+    font-family: 'Limelight';
 }
 
 .contentPage {
@@ -62,13 +61,14 @@
 .nextSlotPage .nextSlotHeader {
     grid-column: 1 / span 4;
     text-align: center;
-    font-size: 50px;
+    font-size: 60px;
     padding-bottom: 20px;
+    padding-top: 150px;
     font-family: 'Limelight', cursive;
 }
 
 .nextSlotPage .nextSlotItem .nextSlotRoom {
-    font-size: 40px;
+    font-size: 60px;
     font-family: 'Limelight', cursive;
     margin-left: 16px;
 }
@@ -86,14 +86,14 @@
 }
 
 .nextSlotPage .nextSlotItem .titleText {
-    font-size: 25px;
+    font-size: 30px;
     font-weight: bold;
     font-family: "Josefin Sans", system-ui, sans-serif;
 }
 
 .nextSlotPage .nextSlotItem .speakerText {
     margin-top: 20px;
-    font-size: 25px;
+    font-size: 30px;
 }
 
 .partnerSummaryPage {
@@ -152,7 +152,8 @@
     text-align: center;
     padding: 20px;
     font-family: "Josefin Sans", system-ui, sans-serif;
-    font-size: 45px;
+    font-size: 60px;
+    margin-top: 150px;
 }
 
 .standInfoPage .standPersonSection {
@@ -165,14 +166,14 @@
 }
 
 .standInfoPage .standPersonSection .oneStandPerson .standPerson {
-    font-size: 60px;
+    font-size: 120px;
     margin-bottom: 20px;
     font-family: 'Limelight', cursive;
 }
 
 .standInfoPage .standPersonSection .oneStandPerson .chatHeader {
     margin-top: 50px;
-    font-size: 35px;
+    font-size: 70px;
     font-family: "Josefin Sans", system-ui, sans-serif;
 }
 
@@ -181,7 +182,7 @@
 }
 
 .standInfoPage .standPersonSection .oneStandPerson .chatList .chatListItem {
-    font-size: 30px;
+    font-size: 60px;
     font-family: "Josefin Sans", system-ui, sans-serif;
     padding: 10px;
 }
@@ -198,6 +199,7 @@
     height: calc(100% - 20px); /* Adjust the height to account for padding */
     padding: 15px;         /* Add padding around the image */
     box-sizing: border-box; /* Ensure padding is included in the element's width and height */
+
 }
 
 .partnerImagePage {
@@ -208,5 +210,7 @@
 
 .partnerImagePage img {
     max-height: 100vh;
-    width: 100%;
+    width: 140%;
+    height: 140%;
+    transform: scale(1.5);
 }
